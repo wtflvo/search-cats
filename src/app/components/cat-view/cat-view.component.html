@@ -1,0 +1,55 @@
+<img src="../../../assets/cats-background.jpg" alt="back" class="back-image" />
+<div class="info-container">
+  <div class="header-container"><h1>Find cats of your dream</h1></div>
+  <div class="inputs-container">
+    <form [formGroup]="catsForm">
+      <div class="inputs-elements">
+        <mat-form-field
+          appearance="fill"
+          style="background-color: rgb(227, 225, 225)"
+        >
+          <mat-label>Cats breed </mat-label>
+          <mat-select
+            formControlName="catsBreed"
+            (ngModelChange)="handleBreed($event)"
+          >
+            <mat-option *ngFor="let breed of breeds" [value]="breed.id">
+              {{ breed.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field
+          appearance="fill"
+          style="background-color: rgb(227, 225, 225)"
+        >
+          <mat-label>Cats quantity</mat-label>
+          <mat-select
+            formControlName="catsQuantity"
+            (ngModelChange)="handleQuantity($event)"
+          >
+            <mat-option
+              *ngFor="let quantity of quantities"
+              [value]="quantity.quantity"
+              >{{ quantity.quantityView }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="warn" (click)="submit()">
+          Find Cats!<img
+            src="../../../assets/cat-sit.png"
+            class="btn-image"
+            alt="cat"
+          />
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="show" id="img-container" class="images-container">
+  <div *ngFor="let cat of cats" class="cat-container">
+    <mat-card
+      ><img mat-card-sm-image src="{{ cat.url }}" class="cat-image" alt="cat"
+    /></mat-card>
+  </div>
+</div>
