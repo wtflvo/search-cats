@@ -34,21 +34,19 @@ export class CatViewComponent implements OnInit {
     catsBreed: new FormControl(this.breeds[0].id),
     catsQuantity: new FormControl(this.quantities[1].quantity),
   });
-  
+
   cats: Array<Cat> = [];
- async submit() {
-  let catsBand:Array<Cat> = []
-    catsBand = await this.catsInfo.getCats() as Array<Cat>;
+  async submit() {
+    let catsBand: Array<Cat> = [];
+    catsBand = (await this.catsInfo.getCats()) as Array<Cat>;
     for (let cat of catsBand) {
-      this.cats.push(cat)
+      this.cats.push(cat);
     }
-        this.isShown = true;
-    
+    this.isShown = true;
   }
   clear() {
     this.cats = [];
     this.isShown = false;
-    
   }
 
   isShown: Boolean = false;

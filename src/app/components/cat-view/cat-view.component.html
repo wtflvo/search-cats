@@ -48,17 +48,25 @@
             alt="cat"
           />
         </button>
-        
-        
       </div>
     </form>
   </div>
 </div>
 
-<div *ngIf="isShown" id="img-container" class="images-container">
-  <div *ngFor="let cat of cats" class="cat-container">
-    <mat-card
-      ><img mat-card-sm-image src="{{ cat.url }}" class="cat-image" alt="cat"
-    /></mat-card>
+<div *ngIf="isShown" class="content-container">
+  <div class="cat-container">
+    <div *ngFor="let cat of cats">
+      <mat-card
+        ><img mat-card-sm-image src="{{ cat.url }}" class="cat-image" alt="cat"
+      /></mat-card>
+    </div>
+  </div>
+  <div class="end-button-container">
+    <button mat-raised-button color="warn" class="end-btn" (click)="submit()">
+      More Cats!<img src="./assets/cat-sit.png" class="btn-image" alt="cat" />
+    </button>
+    <button mat-raised-button color="accent" class="end-btn"  (click)="clear()">
+      Clear Cats!<img src="./assets/cat-run.png" class="btn-image" alt="cat" />
+    </button>
   </div>
 </div>
