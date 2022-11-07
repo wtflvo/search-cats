@@ -41,6 +41,13 @@
             alt="cat"
           />
         </button>
+        <button mat-raised-button color="accent" (click)="clear()">
+          Clear Cats!<img
+            src="./assets/cat-run.png"
+            class="btn-image"
+            alt="cat"
+          />
+        </button>
         
         
       </div>
@@ -48,7 +55,7 @@
   </div>
 </div>
 
-<div [hidden]="show == !show" id="img-container" class="images-container">
+<div *ngIf="isShown" id="img-container" class="images-container">
   <div *ngFor="let cat of cats" class="cat-container">
     <mat-card
       ><img mat-card-sm-image src="{{ cat.url }}" class="cat-image" alt="cat"

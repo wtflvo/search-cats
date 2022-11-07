@@ -17,6 +17,7 @@ import {
 } from '../../state/cats-breed.actions';
 import { BREEDS } from 'src/app/arrays/BreedsList';
 import { QUANTITIES } from 'src/app/arrays/QuantitiesList';
+import { Cat } from 'src/app/interfaces/Cat';
 
 @Component({
   selector: 'app-cat-view',
@@ -28,19 +29,29 @@ export class CatViewComponent implements OnInit {
   constructor(private store: Store, private catsInfo: CatApiService) {}
   breeds = BREEDS;
   quantities = QUANTITIES;
-  
+
   catsForm: FormGroup = new FormGroup({
     catsBreed: new FormControl(this.breeds[0].id),
     catsQuantity: new FormControl(this.quantities[1].quantity),
   });
-  cats = this.catsInfo.cats;
-
-  submit() {
-    this.catsInfo.getCats();
-    this.show = true;
-  }
   
-  show: Boolean = false;
+  cats: Array<Cat> = [];
+ async submit() {
+  let catsBand:Array<Cat> = []
+    catsBand = await this.catsInfo.getCats() as Array<Cat>;
+    for (let cat of catsBand) {
+      this.cats.push(cat)
+    }
+        this.isShown = true;
+    
+  }
+  clear() {
+    this.cats = [];
+    this.isShown = false;
+    
+  }
+
+  isShown: Boolean = false;
 
   handleQuantity(value: number) {
     switch (value) {
