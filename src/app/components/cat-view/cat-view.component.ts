@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormControl, FormGroup } from '@angular/forms';
-
 import { CatApiService } from 'src/app/services/cat-api.service';
-import { Breed } from 'src/app/interfaces/Breed';
-import { Quantity } from 'src/app/interfaces/Quantity';
 import {
   quantityFive,
   quantityTen,
   quantityTwenty,
 } from '../../state/cats-quantity.actions';
-
 import {
   setAnyBreed,
   setAbobBreed,
@@ -19,6 +15,8 @@ import {
   setAbysBreed,
   setSingBreed,
 } from '../../state/cats-breed.actions';
+import { BREEDS } from 'src/app/arrays/BreedsList';
+import { QUANTITIES } from 'src/app/arrays/QuantitiesList';
 
 @Component({
   selector: 'app-cat-view',
@@ -27,35 +25,19 @@ import {
   providers: [CatApiService],
 })
 export class CatViewComponent implements OnInit {
-  breeds: Array<Breed> = [
-    { id: 'any', name: 'Any breed' },
-    { id: 'abys', name: 'Abyssinian' },
-    { id: 'raga', name: 'Ragamuffin' },
-    { id: 'abob', name: 'American Bobtail' },
-    { id: 'sing', name: 'Singapura' },
-    { id: 'asho', name: 'American Shorthair' },
-  ];
-  quantities: Array<Quantity> = [
-    { quantity: 5, quantityView: '5' },
-    { quantity: 10, quantityView: '10' },
-    { quantity: 20, quantityView: '20' },
-  ];
-  selectedBreed = this.breeds[0].id;
-  selectedQuantity = this.quantities[1].quantity;
-
-  catsForm: FormGroup = new FormGroup({
-    catsBreed: new FormControl(this.selectedBreed),
-    catsQuantity: new FormControl(this.selectedQuantity),
-  });
-
   constructor(private store: Store, private catsInfo: CatApiService) {}
+  breeds = BREEDS;
+  quantities = QUANTITIES;
+  
+  catsForm: FormGroup = new FormGroup({
+    catsBreed: new FormControl(this.breeds[0].id),
+    catsQuantity: new FormControl(this.quantities[1].quantity),
+  });
   cats = this.catsInfo.cats;
+
   submit() {
     this.catsInfo.getCats();
-    if (!this.show) {
-      this.show = true;
-    }
-    
+    this.show = true;
   }
   
   show: Boolean = false;
